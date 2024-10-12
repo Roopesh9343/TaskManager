@@ -88,59 +88,59 @@ Simple task manager web application to create, get, update and delete Tasks.
     http://localhost:<server.port>/
     ```
 ## Technologies and Libraries used in this project
-1. Spring Boot
-    * Description: Spring Boot is a framework that simplifies the creation of stand-alone, production-grade Spring       
+1. **Spring Boot**
+    * _Description_: Spring Boot is a framework that simplifies the creation of stand-alone, production-grade Spring       
       applications. It provides pre-configured templates and settings to help with rapid development.
-    * Usage: This project uses Spring Boot to create a RESTful API server. It automatically handles various configurations, 
+    * _Usage_: This project uses Spring Boot to create a RESTful API server. It automatically handles various configurations, 
       reducing the boilerplate code needed for setup.
-2. Java
-   * Description: Java is a widely-used programming language known for its portability, performance, and large ecosystem. 
+2. **Java**
+   * _Description_: Java is a widely-used programming language known for its portability, performance, and large ecosystem. 
      It is the language in which Spring Boot is built and used.
-   * Usage: Java is the primary language for implementing the logic, models, and controllers in this project.
-3. Swagger
-   * Description: Swagger is an open-source toolset for API documentation and testing. It provides a user-friendly 
+   * _Usage_: Java is the primary language for implementing the logic, models, and controllers in this project.
+3. **Swagger**
+   * _Description_: Swagger is an open-source toolset for API documentation and testing. It provides a user-friendly 
      interface to view and test APIs.
-   * Usage: Swagger is included to auto-generate API documentation, allowing you to test and explore endpoints 
+   * _Usage_: Swagger is included to auto-generate API documentation, allowing you to test and explore endpoints 
      interactively via swagger-ui.
-4. Thymeleaf
-    * Description: Thymeleaf is a Java template engine for web applications. It allows for seamless integration of Java and 
+4. **Thymeleaf**
+    * _Description_: Thymeleaf is a Java template engine for web applications. It allows for seamless integration of Java and 
       HTML, making it easy to build dynamic web pages.
-    * Usage: Used to render HTML pages on the client side, Thymeleaf templates enable easy integration with Spring Boot to 
+    * _Usage_: Used to render HTML pages on the client side, Thymeleaf templates enable easy integration with Spring Boot to 
       create dynamic views.
-5. HTML, CSS, and AJAX
-    * HTML: Markup language used to structure and display content on the web.
-    * CSS: Stylesheet language used to style and layout the web pages.
-    * AJAX: Asynchronous JavaScript and XML, a set of web development techniques used for creating asynchronous web 
+5. **HTML, CSS, and AJAX**
+    * _HTML_: Markup language used to structure and display content on the web.
+    * _CSS_: Stylesheet language used to style and layout the web pages.
+    * _AJAX_: Asynchronous JavaScript and XML, a set of web development techniques used for creating asynchronous web 
       applications.
-    * Usage: HTML and CSS are used to create the front-end of the project, while AJAX enables asynchronous communication 
+    * _Usage_: HTML and CSS are used to create the front-end of the project, while AJAX enables asynchronous communication 
       with the server for a more dynamic user experience.
-6. Postman
-    * Description: Postman is a tool used to develop, test, and document APIs. It allows users to create and send HTTP 
+6.** Postman**
+    * _Description_: Postman is a tool used to develop, test, and document APIs. It allows users to create and send HTTP 
       requests to APIs.
-    * Usage: Postman is used to manually test the API endpoints created in this project, especially during development.
-7. Lombok
-    * Description: Lombok is a Java library that helps reduce boilerplate code. It provides annotations to auto-generate 
+    * _Usage_: Postman is used to manually test the API endpoints created in this project, especially during development.
+7. **Lombok**
+    * _Description_: Lombok is a Java library that helps reduce boilerplate code. It provides annotations to auto-generate 
       getters, setters, constructors, and more.
-    * Usage: Lombok is used to simplify Java code in the project by eliminating repetitive code like getters, setters, and 
+    * _Usage_: Lombok is used to simplify Java code in the project by eliminating repetitive code like getters, setters, and 
       constructors.
-8. Spring Web
-    * Description: Part of the Spring Framework, Spring Web provides tools to build web applications, including RESTful 
+8. **Spring Web**
+    * _Description_: Part of the Spring Framework, Spring Web provides tools to build web applications, including RESTful 
       services.
-    * Usage: Spring Web is used to handle HTTP requests and responses, facilitating the development of RESTful endpoints for the project.
-9. Spring Data JPA
-    * Description: Spring Data JPA is part of the Spring Data project and simplifies data access, abstracting away the     
+    * _Usage_: Spring Web is used to handle HTTP requests and responses, facilitating the development of RESTful endpoints for the project.
+9. **Spring Data JPA**
+    * _Description_: Spring Data JPA is part of the Spring Data project and simplifies data access, abstracting away the     
       underlying database interactions.
-    * Usage: It allows for easy integration with JPA (Java Persistence API), providing a repository abstraction over the 
+    * _Usage_: It allows for easy integration with JPA (Java Persistence API), providing a repository abstraction over the 
       database (e.g., MySQL or H2).
-10. MySQL & H2 Database
-    * MySQL: A popular relational database management system used for production environments.
-    * H2: An in-memory database often used for development and testing.
-    * Usage: MySQL is used as the primary database in this project, with H2 serving as an in-memory alternative for testing 
+10. **MySQL & H2 Database**
+    * _MySQL_: A popular relational database management system used for production environments.
+    * _H2_: An in-memory database often used for development and testing.
+    * _Usage_: MySQL is used as the primary database in this project, with H2 serving as an in-memory alternative for testing 
       and quick prototyping.
-11. Spring Boot Starter Test
-    * Description: This starter includes libraries like JUnit, Mockito, and AssertJ, which are essential for unit and 
+11. **Spring Boot Starter Test**
+    * _Description_: This starter includes libraries like JUnit, Mockito, and AssertJ, which are essential for unit and 
       integration testing in Spring applications.
-    * Usage: Spring Boot Starter Test is used to test various parts of the application, including the API endpoints and 
+    * _Usage_: Spring Boot Starter Test is used to test various parts of the application, including the API endpoints and 
       business logic, ensuring quality and stability.
 
 
