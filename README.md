@@ -11,10 +11,10 @@ Steps to Run the Spring Boot Project
 1. Clone the Project.
 2. Configure Database
    * open the 'src/main/resources/application.properties' file and update the database configurations
-     '''
+    ```
       spring.datasource.url=jdbc:mysql://localhost:3306/your_database
       spring.datasource.username=your_username
       spring.datasource.password=your_password
-     '''
+     ```
     
   
