@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Task Manager</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            background: #e0e5ec;
+            color: #333;
+            margin: 20px;
+        }
+
+        h1 {
+            position: relative;
+            text-align: center;
+            color: #353535;
+            font-size: 50px;
+            font-family: "Cormorant Garamond", serif;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            margin: 1em 0;
+        }
+
+        #createTaskForm {
+            margin-bottom: 1em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1em;
+        }
+
+        th,
+        td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #343a40;
+            color: #ffffff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #e2e2e2;
+        }
+
+        button {
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        form {
+            margin-bottom: 30px;
+            /* Space below forms */
+            border: 1px solid #ccc;
+            /* Add a border to distinguish the form */
+            padding: 20px;
+            /* Add padding inside the form */
+            border-radius: 5px;
+            /* Rounded corners */
+            background-color: #f9f9f9;
+            /* Light background for the form */
+            display: none;
+            /* Hide forms initially */
+        }
+
+        .delete-button {
+            background-color: red;
+            border: none;
+
+            color: white;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .delete-button :hover {
+            background-color: red;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        input[type="text"],
+        input[type="datetime-local"] {
+            padding: 10px;
+            width: calc(100% - 22px);
+           
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        #updateTaskButton,
+        #newTaskButton {
+            display: block;
+            margin-bottom: 20px;
+           
+        }
+
+        #updateHeader,
+        #updateTaskButton {
+            min-height: 30px;
+           
+        }
+
+        
+        #updateTaskButton,
+        #updateHeader {
+            display: block;
+            
+        }
+
+        
+        .custom-btn {
+            background: rgb(6, 14, 131);
+            background: linear-gradient(0deg, rgba(6, 14, 131, 1) 0%, rgba(12, 25, 180, 1) 100%);
+            border: none;
+            color: white;
+            
+            padding: 10px 15px;
+           
+            border-radius: 4px;
+            
+            cursor: pointer;
+            
+            font-size: 1em;
+            
+        }
+
+        .custom-btn:hover {
+            background: rgb(0, 3, 255);
+            background: linear-gradient(0deg, rgba(0, 3, 255, 1) 0%, rgba(2, 126, 251, 1) 100%);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Task Manager</h1>
+
+    <h2 id="createHeader">Create a Task</h2>
+    <button id="newTaskButton" class="custom-btn">New Task</button>
+    <form id="createTaskForm" style="display: none;"> 
+        <label for="taskName">Task Name:</label>
+        <input type="text" id="taskName" name="taskName" required>
+
+        <label for="description">Task Description:</label>
+        <input type="text" id="description" name="description" required>
+
+        <label for="dueDate">Due Date and Time:</label>
+        <input type="datetime-local" id="dueDate" name="dueDate" value="2024-10-15T17:00:00" required>
+
+        <button type="submit" class="custom-btn">Create Task</button>
+        <button type="button" id="hideFormButton" class="custom-btn">Hide</button>
+    </form>
+
+
+    <h2 id="updateHeader">Update a Task</h2>
+    <button id="updateTaskButton" class="custom-btn">Update Task</button>
+
+    <form id="updateTaskForm" style="display: none;">
+        <label for="taskId">Task ID:</label>
+        <input type="text" id="taskId" name="taskId" required>
+
+        <label for="uptaskName">Task Name:</label>
+        <input type="text" id="uptaskName" name="uptaskName" required>
+
+        <label for="updescription">Task Description:</label>
+        <input type="text" id="updescription" name="updescription" required>
+
+        <label for="updueDate">Due Date and Time:</label>
+        <input type="datetime-local" id="updueDate" name="updueDate" value="2024-10-15T17:00:00" required>
+
+        <button type="submit" class="custom-btn">Update Task</button>
+        <button type="button" id="hideFormButtonup" class="custom-btn">Hide</button>
+    </form>
+
+
+    <h2>Tasks</h2>
+    <table id="taskTable">
+        <thead>
+            <tr>
+                <th>Task ID</th>
+                <th>Task Name</th>
+                <th>Description</th>
+                <th>Due Date</th>
+                <th>Created Date</th>
+                <th>Updated Date</th>
+                <th> </th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+
+        <script>
+            $(document).ready(function () {
+
+
+                $(document).on('click', '.delete-button', function () {
+                    const row = $(this).closest('tr'); 
+                    const taskId = row.data('taskId'); 
+                    console.log("Task ID:", taskId);
+                    if (confirm('Are you sure you want to delete this task?')) {
+                        $.ajax({
+                            url: `http://localhost:9300/api/taskManger/${taskId}`, 
+                            type: 'DELETE',
+                            success: function (response) {
+                                alert('Task deleted successfully!');
+                                row.remove(); 
+                            },
+                            error: function (xhr) {
+                                alert('Error: ' + xhr.responseJSON.message);
+                            }
+                        });
+                    }
+                });
+
+                $('#newTaskButton').on('click', function () {
+                    $('#createTaskForm').toggle();
+                    $('#updateTaskForm').hide();
+                    $('#updateHeader').hide();
+                    $('#updateTaskButton').hide();
+                    $('#newTaskButton').hide();
+                });
+
+                $('#updateTaskButton').on('click', function () {
+                    $('#updateTaskForm').toggle();
+                    $('#createTaskForm').hide();
+                    $('#createHeader').hide();
+                    $('#newTaskButton').hide();
+                    $('#updateTaskButton').hide();
+                });
+
+                $('#hideFormButton').on('click', function () {
+                    $('#createTaskForm').hide();
+                    $('#updateHeader').show();
+                    $('#updateTaskButton').show();
+                    $('#newTaskButton').show();
+
+                });
+                $('#hideFormButtonup').on('click', function () {
+                    $('#updateTaskForm').hide();
+                    $('#createHeader').show();
+                    $('#newTaskButton').show();
+                    $('#updateTaskButton').show();
+                });
+
+                $('#createTaskForm').on('submit', function (e) {
+                    e.preventDefault();
+                    $('#createTaskForm').hide();
+                    
+                    const currentDateTime = new Date().toISOString();
+
+                    const taskData = {
+                        taskName: $('#taskName').val(),
+                        description: $('#description').val(),
+                        dueDate: $('#dueDate').val(),
+                        createdDate: currentDateTime,
+                        updatedDate: currentDateTime
+                    };
+                    $.ajax({
+                        url: 'http://localhost:9300/api/taskManger/create',
+                        type: 'POST',
+                        contentType: 'application/json',
+                        data: JSON.stringify(taskData),
+                        success: function (response) {
+                            $('#taskName').val('');
+                            $('#description').val('');
+                            $('#dueDate').val('');
+                            $('#taskTable tbody').append(`
+        <tr data-task-id="${response.taskId}">
+            <td>${response.taskId}</td>
+            <td>${response.taskName}</td>
+            <td>${response.description}</td>
+            <td>${new Date(response.dueDate).toLocaleString()}</td>
+            <td>${new Date(response.createdDate).toLocaleString()}</td>
+            <td>${new Date(response.updatedDate).toLocaleString()}</td>
+            <td><button type="button" id="delete-button "class="delete-button">Delete</button></td>
+        </tr>
+    `);
+                        },
+                        error: function (xhr) {
+                            alert('Error: ' + xhr.responseJSON.message);
+                        }
+                    });
+                });
+
+
+                // Update Task
+                $('#updateTaskForm').on('submit', function (e) {
+                    e.preventDefault();
+
+                    const taskId = $('#taskId').val(); 
+                    const taskData = {
+                        taskName: $('#uptaskName').val(),
+                        description: $('#updescription').val(),
+                        dueDate: $('#updueDate').val(),
+                    };
+
+                    $.ajax({
+                        url: `http://localhost:9300/api/taskManger/update/${taskId}`,
+                        type: 'PUT',
+                        contentType: 'application/json',
+                        data: JSON.stringify(taskData),
+                        success: function (response) {
+                            const row = $(`#taskTable tbody tr[data-task-id="${response.taskId}"]`);
+                            row.children('td:nth-child(2)').text(response.taskName);
+                            row.children('td:nth-child(3)').text(response.description);
+                            row.children('td:nth-child(4)').text(new Date(response.dueDate).toLocaleString());
+                            row.children('td:nth-child(5)').text(new Date(response.createdDate).toLocaleString());
+                            row.children('td:nth-child(6)').text(new Date(response.updatedDate).toLocaleString());
+
+                            $('#updateTaskForm').hide(); 
+                        },
+                        error: function (xhr) {
+                            alert('Error: ' + xhr.responseJSON.message);
+                        }
+                    });
+                });
+
+                $.ajax({
+                    url: 'http://localhost:9300/api/taskManger',
+                    type: 'GET',
+                    success: function (response) {
+                        $('#taskTable tbody').empty();
+                        response.forEach(function (task) {
+                            $('#taskTable tbody').append(`
+                <tr data-task-id="${task.taskId}">
+                    <td>${task.taskId}</td>
+                    <td>${task.taskName}</td>
+                    <td>${task.description}</td>
+                <td>${new Date(task.dueDate).toLocaleString()}</td>
+                <td>${new Date(task.createdDate).toLocaleString()}</td>
+                <td>${new Date(task.updatedDate).toLocaleString()}</td>
+                
+            <td><button type="button" class="delete-button">Delete</button></td>
+                </tr>
+            `);
+                        });
+                    },
+                    error: function (xhr) {
+                        alert('Error: ' + xhr.responseJSON.message);
+                    }
+                });
+            });
+        </script>
+</body>
+
+</html>
