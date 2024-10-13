@@ -114,7 +114,7 @@ Simple task manager web application to create, get, update and delete Tasks.
       applications.
     * _Usage_: HTML and CSS are used to create the front-end of the project, while AJAX enables asynchronous communication 
       with the server for a more dynamic user experience.
-6.** Postman**
+6. ** Postman**
     * _Description_: Postman is a tool used to develop, test, and document APIs. It allows users to create and send HTTP 
       requests to APIs.
     * _Usage_: Postman is used to manually test the API endpoints created in this project, especially during development.
